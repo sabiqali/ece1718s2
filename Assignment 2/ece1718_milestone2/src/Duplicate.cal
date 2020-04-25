@@ -1,0 +1,15 @@
+actor Duplicate() uint(size = 8) Stream ==> uint(size = 8) Actual_data, uint(size = 8) Data_To_Be_Manipulated:
+	
+	//@native function source_sizeOfFile() --> int(size=32)
+	//end
+	
+	action Stream:[a] ==> Actual_data:[out1], Data_To_Be_Manipulated:[out2]
+	var
+		uint(size = 8) out1,
+		uint(size = 8) out2
+	do
+		out1 := a;
+		out2 := a;
+		//println("Duplicate" + out1 + " " + out2);
+	end
+end

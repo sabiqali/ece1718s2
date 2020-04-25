@@ -1,0 +1,190 @@
+actor Approx7() uint(size = 8) Data_To_Be_Manipulated ==> uint(size = 8) Approxed_Data:
+	
+	int i := 0;
+	int j := 0;
+	int l := 0;
+	int jcount := 0;
+	int k := 640;
+	int a := 0;
+	int (size=8) h := 0; 
+	int compute_flag := 0;
+	int send_flag := 0;
+	int m := 640;
+	int n := 576;
+	int sum :=0;
+	int diff :=0;
+	int o :=1280;
+	int p :=1920;
+	int q :=2560; 
+	List (type: uint(size=8), size= m*n) M;
+	List (type: uint(size=8), size= m*n) N;
+	
+	
+	
+	build_list: action Data_To_Be_Manipulated: [In1] ==> 
+	guard
+		i < 368640
+	do
+		M[i] := In1;
+		//println("Approx: "+M[i]);
+		i := i+1;
+		//j:=0;
+		//k:=1280;
+	end
+	
+	read_list: action ==> Approxed_Data:[Out1]
+	guard
+		i = 368640,
+		p < 368000,
+		q < 368640,
+		o < 367360,
+		k < 366720,
+		j < 366080
+	var
+		uint(size = 8) Out1
+	do
+		//Out1 := M[j];
+		//println("Approx2: "+M[j]);
+		//j := j + 1; 	
+		h := (M[j]+M[j+1]+M[j+2]+M[j+3]+M[j+4]+M[k]+M[k+1]+M[k+2]+M[k+3]+M[k+4]+M[o]+M[o+1]+M[o+2]+M[o+3]+M[o+4]+M[p]+M[p+1]+M[p+2]+M[p+3]+M[p+4]+M[q]+M[q+1]+M[q+2]+M[q+3]+M[q+4]) / 25;
+			N[j] := h;
+				N[j+1] := h;
+				N[j+2] := h;
+				N[j+3] := h;
+				N[j+4] := h;
+				N[k] := h;
+				N[k+1] := h;
+				N[k+2] := h;
+				N[k+3] := h;
+				N[k+4] := h;
+				N[o] := h;
+				N[o+1] := h;
+				N[o+2] := h;
+				N[o+3] := h;
+				N[o+4] := h;
+				N[p] := h;
+				N[p+1] := h;
+				N[p+2] := h;
+				N[p+3] := h;
+				N[p+4] := h;
+				N[q] := h;
+				N[q+1] := h;
+				N[q+2] := h;
+				N[q+3] := h;
+				N[q+4] := h;
+			diff := (M[j] - N[j]) + (M[j+1] - N[j+1]) + (M[j+2] - N[j+2]) + (M[j+3] - N[j+3]) + (M[j+4] - N[j+4]) + (M[k] - N[k]) + (M[k+1] - N[k-1]) + (M[k+2]-N[k+2]) + (M[k+3] - N[k+3]) + (M[k+4] - N[k+4]) + (M[o] - N[o]) + (M[o+1]-N[o+1]) + (M[o+2]-N[o+2]) + (M[o+3] - N[o+3]) + (M[o+4] - N[o+4]) + (M[p] - N[p]) + (M[p+1]-N[p+1]) + (M[p+2]-N[p+2]) + (M[p+3] - N[p+3]) + (M[p+4] - N[p+4])+ (M[q] - N[q]) + (M[q+1]-N[q+1]) + (M[q+2]-N[q+2]) + (M[q+3] - N[q+3]) + (M[q+4] - N[q+4]);
+			sum := sum + diff;
+			println("Approx2: "+N[j] + " " + N[j+1]+ " " + N[k]+ " " + N[k+1] + " " + j + " " + k + " " + sum);
+			j := j+5;
+			k := k+5;
+			o := o+5;
+			p := p+5;
+			q := q+5;
+			println(" "+j + " " + q);
+			/*if q = 368640
+			then 
+				while l < 368640
+				do
+					Out1 := N[l];
+					//println("Approx3: " + Out1);
+					l := l + 1;
+				end
+			end*/
+			if j mod 640 = 0
+				then
+					jcount := jcount + 5;
+					j := 640 * jcount;
+					k := j + 640;
+					o := k + 640;
+					p := o + 640;
+					q := p + 640;
+				end
+			println(" "+j + " " + q);
+			//l := 0;
+	end
+	
+	send_list: action ==> Approxed_Data:[Out1]
+	guard
+		q = 370560,
+		l < 368640
+	var
+		uint(size = 8) Out1
+	do
+		Out1 := N[l];
+		println("Approx2: "+Out1);
+		l := l + 1; 
+		//i := 0;
+	end
+	
+	/*init: action ==>
+	do
+		i := 0;
+		j := 0;
+		l := 0;
+		k := 1280;
+	end*/
+	
+	/*schedule fsm s_first:
+		s_first ( build_list ) --> s_second;
+		s_second( read_list ) --> s_third;
+		s_third( send_list ) --> s_fourth;
+		s_fourth(init) --> s_first;
+	end*/
+	/*first: action Data_To_Be_Manipulated: [In1] ==> 
+	guard
+		i < 2560
+	do
+		while i < 2560
+		do
+		print("Approx1 : "+ In1);
+		M[i] := In1;
+		i := i+1;
+		end
+		
+		if i = 2560
+		then	
+			compute_flag := 1;
+		else
+			compute_flag := 0;
+		end
+	end
+	
+	second: action ==>
+	guard
+		compute_flag = 1
+	do
+		while j < 1280
+		do
+			//computation
+			h := (M[j]+M[j+1]+M[k]+M[k+1]) / 4;
+			N[j] := h;
+			N[j+1] := h;
+			N[k] := h;
+			N[k+1] := h;
+			j := j+2;
+			k := k+2;
+		end
+	
+		if	j = 1280 && k = 2560
+			then
+				send_flag := 1;
+			else
+	   		 	send_flag := 0;
+	   		end
+	end
+	
+	third: action ==> Approxed_Data: [Out1]
+	guard 
+		send_flag = 1
+	var
+		uint (size=8) Out1
+	do
+		while a < 2560
+		do
+		Out1 := N[a];
+		a := a+1;
+		end
+		
+	end*/
+	
+end

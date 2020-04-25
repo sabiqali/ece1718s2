@@ -1,0 +1,92 @@
+actor extract() uint(size = 8) hidden_img ==> uint(size = 8) encrypted_img, uint(size = 8) key:
+
+	int i;
+	int j;
+	int k;
+	int o;
+	int p;
+	int l;
+	int q;
+	int jcount := 0;
+	int m := 640;
+	int n := 576;
+	
+	List (type: uint(size=8), size= m*n) M;
+	List (type: uint(size=8), size= m*n) N;
+	List (type: uint(size=8), size= 256) O;
+	
+	build_host_list: action hidden_img: [In1] ==> 
+	guard
+		i < 368640
+	do
+		M[i] := In1;
+		//println("Approx: "+M[i]);
+		i := i+1;
+		//j:=0;
+		//k:=1280;
+	end
+	
+	read_list: action ==>
+	guard
+		i = 368640,
+		o < 368000,
+		p < 368640,
+		k < 367360,
+		j < 366720
+	do
+		//Out1 := M[j];
+		//println("Approx2: "+M[j]);
+		//j := j + 1; 	
+		/*h := (M[j]+M[j+1]+M[j+2]+M[j+3]+M[k]+M[k+1]+M[k+2]+M[k+3]+M[o]+M[o+1]+M[o+2]+M[o+3]+M[p]+M[p+1]+M[p+2]+M[p+3]) / 16;
+			N[j] := h;
+				N[j+1] := h;
+				N[j+2] := h;
+				N[j+3] := h;
+				N[k] := h;
+				N[k+1] := h;
+				N[k+2] := h;
+				N[k+3] := h;
+				N[o] := h;
+				N[o+1] := h;
+				N[o+2] := h;
+				N[o+3] := h;
+				N[p] := h;
+				N[p+1] := h;
+				N[p+2] := h;
+				N[p+3] := h;*/
+				
+		//TODO::Put the extraction algorithm here	
+			
+			
+			println("Approx2: "+N[j] + " " + N[j+1]+ " " + N[k]+ " " + N[k+1] + " " + j + " " + k);
+			j := j+4;
+			k := k+4;
+			o := o+4;
+			p := p+4;
+			println(" "+j + " " + k);
+			if j mod 640 = 0
+				then
+					jcount := jcount + 4;
+					j := 640 * jcount;
+					k := j + 640;
+					o := k + 640;
+					p := o + 640;
+				end
+			//println(p);
+			//l := 0;
+	end
+	
+	send_list: action ==> encrypted_img:[Out1]
+	guard
+		p = 370560,
+		l < 256
+	var
+		uint(size = 8) Out1
+	do
+		Out1 := N[l];
+		println("Approx2: "+l+" "+Out1);
+		l := l + 1; 
+		//i := 0;
+	end
+
+end

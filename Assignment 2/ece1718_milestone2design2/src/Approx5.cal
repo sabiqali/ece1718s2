@@ -1,0 +1,166 @@
+actor Approx5() uint(size = 8) Data_To_Be_Manipulated ==> uint(size = 8) Approxed_Data:
+	
+	int i := 0;
+	int j := 0;
+	int l := 0;
+	int jcount := 0;
+	int k := 640;
+	int a := 0;
+	int (size=8) h := 0; 
+	int compute_flag := 0;
+	int send_flag := 0;
+	int m := 640;
+	int n := 576;
+	int sum :=0;
+	int diff :=0;
+	int o :=0;
+	List (type: uint(size=8), size= m*n) M;
+	List (type: uint(size=8), size= m*n) N;
+	
+	
+	
+	build_list: action Data_To_Be_Manipulated: [In1] ==> 
+	guard
+		i < 368640
+	do
+		M[i] := In1;
+		//println("Approx: "+M[i]);
+		i := i+1;
+		//j:=0;
+		//k:=1280;
+	end
+	
+	read_list: action ==> Approxed_Data:[Out1]
+	guard
+		i = 368640,
+		k < 368000,
+		o < 368640,
+		j < 367360
+	var
+		uint(size = 8) Out1
+	do
+		//Out1 := M[j];
+		//println("Approx2: "+M[j]);
+		//j := j + 1; 	
+		h := (M[j]+M[j+1]+M[j+2]+M[k]+M[k+1]+M[k+2]+M[o]+M[o+1]+M[o+2]) / 9;
+			N[j] := h;
+				N[j+1] := h;
+				N[j+2] := h;
+				N[k] := h;
+				N[k+1] := h;
+				N[k+2] := h;
+				N[o] := h;
+				N[o+1] := h;
+				N[o+2] := h;
+			diff := (M[j] - N[j]) + (M[j+1] - N[j+1]) + (M[j+2] - N[j+2]) + (M[k] - N[k]) + (M[k+1] - N[k-1]) + (M[k+2]-N[k+2]) + (M[o] - N[o]) + (M[o+1]-N[o+1]) + (M[o+2]-N[o+2]);
+			sum := sum + diff;
+			println("Approx2: "+N[j] + " " + N[j+1]+ " " + N[k]+ " " + N[k+1] + " " + j + " " + k + " " + sum);
+			j := j+2;
+			k := k+2;
+			o := o+2;
+			println(" "+j + " " + k);
+			/*if j = 368000
+			then 
+				while l < 368640
+				do
+					Out1 := N[l];
+					//println("Approx3: " + Out1);
+					l := l + 1;
+				end
+			end*/
+			if j mod 640 = 0
+				then
+					jcount := jcount + 3;
+					j := 640 * jcount;
+					k := j + 640;
+					o := k + 640;
+				end
+			println(o);
+			//l := 0;
+	end
+	
+	send_list: action ==> Approxed_Data:[Out1]
+	guard
+		o = 369920,
+		l < 368640
+	var
+		uint(size = 8) Out1
+	do
+		Out1 := N[l];
+		println("Approx2: "+Out1);
+		l := l + 1; 
+		//i := 0;
+	end
+	
+	/*init: action ==>
+	do
+		i := 0;
+		j := 0;
+		l := 0;
+		k := 1280;
+	end*/
+	
+	/*schedule fsm s_first:
+		s_first ( build_list ) --> s_second;
+		s_second( read_list ) --> s_third;
+		s_third( send_list ) --> s_fourth;
+		s_fourth(init) --> s_first;
+	end*/
+	/*first: action Data_To_Be_Manipulated: [In1] ==> 
+	guard
+		i < 2560
+	do
+		while i < 2560
+		do
+		print("Approx1 : "+ In1);
+		M[i] := In1;
+		i := i+1;
+		end
+		
+		if i = 2560
+		then	
+			compute_flag := 1;
+		else
+			compute_flag := 0;
+		end
+	end
+	
+	second: action ==>
+	guard
+		compute_flag = 1
+	do
+		while j < 1280
+		do
+			//computation
+			h := (M[j]+M[j+1]+M[k]+M[k+1]) / 4;
+			N[j] := h;
+			N[j+1] := h;
+			N[k] := h;
+			N[k+1] := h;
+			j := j+2;
+			k := k+2;
+		end
+	
+		if	j = 1280 && k = 2560
+			then
+				send_flag := 1;
+			else
+	   		 	send_flag := 0;
+	   		end
+	end
+	
+	third: action ==> Approxed_Data: [Out1]
+	guard 
+		send_flag = 1
+	var
+		uint (size=8) Out1
+	do
+		while a < 2560
+		do
+		Out1 := N[a];
+		a := a+1;
+		end
+		
+	end*/
+	
+end

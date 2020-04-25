@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XDF name="TopMilestone2Design2">
+    <Instance id="Source">
+        <Class name="Source"/>
+    </Instance>
+    <Instance id="Duplicate">
+        <Class name="Duplicate"/>
+    </Instance>
+    <Instance id="Approx">
+        <Class name="Approx6"/>
+    </Instance>
+    <Instance id="Abs_Diff">
+        <Class name="Abs_Diff"/>
+    </Instance>
+    <Instance id="Sum">
+        <Class name="Sum"/>
+    </Instance>
+    <Instance id="Printer">
+        <Class name="Printer"/>
+    </Instance>
+    <Connection dst="Abs_Diff" dst-port="Actual_data" src="Duplicate" src-port="Actual_data"/>
+    <Connection dst="Sum" dst-port="Abs_diff" src="Abs_Diff" src-port="Abs_diff"/>
+    <Connection dst="Printer" dst-port="Sad_vals" src="Sum" src-port="Sad_vals"/>
+    <Connection dst="Duplicate" dst-port="Stream" src="Source" src-port="Stream"/>
+    <Connection dst="Approx" dst-port="Data_To_Be_Manipulated"
+        src="Duplicate" src-port="Data_To_Be_Manipulated"/>
+    <Connection dst="Abs_Diff" dst-port="Approxed_Data" src="Approx" src-port="Approxed_Data"/>
+</XDF>

@@ -1,0 +1,19 @@
+Name, Package, Actors, Connections, SDF, CSDF, QSDF, KPN, DPN
+design2_piped, , 6, 7, 0, 0, 0, 0, 0
+
+Name, Incoming, Outgoing, Inputs, Outputs, Actions, FSM, MoC
+Source, 0, 1, 0, 1, 6, true, 
+Duplicate, 2, 2, 2, 2, 1, false, 
+Approx, 1, 2, 1, 2, 4, true, 
+Abs_Diff, 2, 1, 2, 1, 2, false, 
+Sum, 1, 1, 1, 1, 2, false, 
+Printer, 1, 0, 1, 0, 1, false, 
+
+Source, SrcPort, Target, TgtPort, Size
+Source, Stream, Duplicate, Stream, 8388608
+Duplicate, Actual_data, Abs_Diff, Actual_data, 8388608
+Duplicate, Data_To_Be_Manipulated, Approx, Data_To_Be_Manipulated, 8388608
+Approx, Approxed_Data, Abs_Diff, Approxed_Data, 8388608
+Abs_Diff, Abs_diff, Sum, Abs_diff, 8388608
+Sum, Sad_vals, Printer, Sad_vals, 8388608
+Approx, input_flag, Duplicate, send_flag, 8388608

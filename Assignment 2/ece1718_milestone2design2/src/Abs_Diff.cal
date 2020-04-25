@@ -1,0 +1,56 @@
+actor Abs_Diff () uint(size = 8) Approxed_Data, uint(size = 8) Actual_data ==> uint(size = 8) Abs_diff:
+	
+	//int temp;
+	List (type: uint(size=8), size= 368640) M;
+	List (type: uint(size=8), size= 368640) N;
+	int i := 0; 
+	int j:=0;
+	//int k:=0;
+	//int l:=0;
+	
+	build_list: action Approxed_Data: [In1], Actual_data:[In2] ==> 
+	guard
+		i < 368640
+	do
+		M[i] := In1;
+		N[i] := In2;
+		//println("Abs-Diff: "+ i + " " + M[i]);
+		i := i+1;
+		//j:=0;
+		//k:=1280;
+	end
+	
+	action ==> Abs_diff:[out1]
+	guard
+		i = 368640,
+		j < 368640
+	var
+		uint(size = 8) out1
+	do
+			if M[j]>N[j]
+			then 
+				out1 := M[j] - N[j];
+			else
+				out1 := N[j] - M[j];
+			end
+			
+			println("Abs-Diff1 "+ M[j] + " " + N[j] + " " + out1);
+			j := j + 1;	
+	end
+	/* 
+	action Actual_data:[a],Approxed_Data:[b] ==> Abs_diff:[out1]
+	guard
+		i = 368640
+	var
+		uint(size = 8) out1
+	do
+			temp := b - a;
+			if temp >= 1
+			then
+				out1 := 2 - temp;
+			else 
+				out1 := temp;
+			end	
+			println("Abs-Diff2 "+ a + " " + b + " " + out1);
+	end*/
+end

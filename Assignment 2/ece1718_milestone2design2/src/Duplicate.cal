@@ -1,0 +1,31 @@
+actor Duplicate() uint(size = 8) Stream ==> uint(size = 8) Actual_data, uint(size = 8) Data_To_Be_Manipulated:
+	
+	int i:=0;
+	int j := 0;
+	List (type: uint(size=8), size= 368640) M;
+	
+	build_list: action Stream: [In1] ==> 
+	guard
+		i < 368640
+	do
+		M[i] := In1;
+		println("Duplicate: "+M[i]);
+		i := i+1;
+		//j:=0;
+		//k:=1280;
+	end
+	
+	action ==> Actual_data:[out1], Data_To_Be_Manipulated:[out2]
+	guard 
+		i = 368640,
+		j < 368640
+	var
+		uint(size = 8) out1,
+		uint(size = 8) out2
+	do
+		out1 := M[j];
+		out2 := M[j];
+		j := j + 1;
+		//println("Duplicate" + out1 + " " + out2 + " " + i);
+	end
+end

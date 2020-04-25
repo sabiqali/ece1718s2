@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XDF name="milestone3">
+    <Instance id="Source_host">
+        <Class name="Source_host"/>
+    </Instance>
+    <Instance id="encrypt">
+        <Class name="encrypt"/>
+    </Instance>
+    <Instance id="decrypt">
+        <Class name="decrypt"/>
+    </Instance>
+    <Instance id="printer">
+        <Class name="printer"/>
+    </Instance>
+    <Connection dst="encrypt" dst-port="Stream" src="Source_host" src-port="Stream"/>
+    <Connection dst="decrypt" dst-port="encrypted_img" src="encrypt" src-port="encrypted_img"/>
+    <Connection dst="decrypt" dst-port="key" src="encrypt" src-port="key"/>
+    <Connection dst="printer" dst-port="data" src="decrypt" src-port="decrypted_img"/>
+</XDF>

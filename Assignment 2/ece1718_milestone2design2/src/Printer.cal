@@ -1,0 +1,25 @@
+actor Printer() uint(size = 32) Sad_vals ==> :
+	
+	//@native procedure write_init() end
+	//@native procedure write_o(int b) end
+	//@native procedure write_close() end
+	//initialize ==>
+	//do 
+		//write_init();
+	//end
+	
+	//Write output to file
+	action Sad_vals:[a] ==> 
+	do 
+		println("WRITE: The data is " + a);
+		//write_o(a);
+	end
+	
+	//Close the file
+	//action Sad_vals:[a] ==>
+	//guard
+		//a = 0
+	//do
+		//write_close();
+	//end
+end

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Partitioning>
+		<Partition id="1">
+			<Instance id="Source"/>
+			<Instance id="Duplicate"/>
+			<Instance id="Abs_Diff"/>
+			<Instance id="Sum"/>
+			<Instance id="Printer"/>
+		</Partition>
+		<!-- Unmapped id="Source" -->
+		<!-- Unmapped id="Duplicate" -->
+		<!-- Unmapped id="Abs_Diff" -->
+		<!-- Unmapped id="Sum" -->
+		<!-- Unmapped id="Printer" -->
+	</Partitioning>
+	
+	<!-- Other useful informations related to any element of the instanciated model can be printed here -->
+</Configuration>

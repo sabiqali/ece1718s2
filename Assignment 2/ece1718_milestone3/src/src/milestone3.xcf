@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Partitioning>
+		<Partition id="1">
+			<Instance id="Source_host"/>
+			<Instance id="encrypt"/>
+			<Instance id="decrypt"/>
+			<Instance id="printer"/>
+		</Partition>
+		<!-- Unmapped id="Source_host" -->
+		<!-- Unmapped id="encrypt" -->
+		<!-- Unmapped id="decrypt" -->
+		<!-- Unmapped id="printer" -->
+	</Partitioning>
+	
+	<!-- Other useful informations related to any element of the instanciated model can be printed here -->
+</Configuration>

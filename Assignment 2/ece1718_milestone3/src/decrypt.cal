@@ -1,0 +1,22 @@
+actor decrypt() uint(size = 8) encrypted_img, uint(size = 8) key ==> uint(size = 8) decrypted_img:
+
+	uint (size = 8) temp;
+	uint (size = 8) temp_key;
+	
+	decrypt: action encrypted_img:[in1],key:[in2] ==> decrypted_img:[out1]
+	var
+		uint(size = 8) out1
+	do
+		temp_key := in2;
+		if in1 >= temp_key
+		then
+			out1 := in1 - temp_key;
+			print("decrypt:" + in1 + " "+ out1);
+		else
+			temp := temp_key - in1;
+			out1 := 256 - temp;
+			print("decrypt:" + in1 + " "+ out1);
+		end
+	end
+
+end

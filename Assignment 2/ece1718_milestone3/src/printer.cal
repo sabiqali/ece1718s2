@@ -1,0 +1,7 @@
+actor printer() uint(size = 8) data, uint(size = 8) data2, uint(size =8) data3==> :
+
+	action data:[in1],data2:[in2], data3:[in3] ==>
+	do
+		//println("Printer:" + in1);
+	end
+end

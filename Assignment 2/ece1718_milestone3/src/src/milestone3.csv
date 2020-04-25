@@ -1,0 +1,14 @@
+Name, Package, Actors, Connections, SDF, CSDF, QSDF, KPN, DPN
+milestone3, , 4, 4, 0, 0, 0, 0, 0
+
+Name, Incoming, Outgoing, Inputs, Outputs, Actions, FSM, MoC
+Source_host, 0, 1, 0, 1, 6, true, 
+encrypt, 1, 2, 1, 2, 1, false, 
+decrypt, 2, 1, 2, 1, 1, false, 
+printer, 1, 0, 3, 0, 1, false, 
+
+Source, SrcPort, Target, TgtPort, Size
+Source_host, Stream, encrypt, Stream, 8192
+encrypt, encrypted_img, decrypt, encrypted_img, 8192
+encrypt, key, decrypt, key, 8192
+decrypt, decrypted_img, printer, data, 8192

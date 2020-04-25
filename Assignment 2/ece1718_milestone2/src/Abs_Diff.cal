@@ -1,0 +1,22 @@
+actor Abs_Diff () uint(size = 8) Approxed_Data, uint(size = 8) Actual_data ==> uint(size = 8) Abs_diff:
+	
+	action Actual_data:[a],Approxed_Data:[b] ==> Abs_diff:[out1]
+	guard
+		a>b
+	var
+		uint(size = 8) out1
+	do
+			out1 := a- b;
+			println("Abs-Diff1 "+ a + " " + b + " " + out1);
+	end
+	
+	action Actual_data:[a],Approxed_Data:[b] ==> Abs_diff:[out1]
+	guard
+		a<b
+	var
+		uint(size = 8) out1
+	do
+			out1 := b - a;
+			println("Abs-Diff2 "+ a + " " + b + " " + out1);
+	end
+end

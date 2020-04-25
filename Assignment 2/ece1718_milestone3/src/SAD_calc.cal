@@ -1,0 +1,32 @@
+actor SAD_calc() uint(size = 8) img1, uint(size = 8) img2 ==> :
+	
+	int sum := 0;
+	int i := 0;
+	float sad_per_frame;
+	float MSE;
+	
+	action img1: [in1], img2:[in2] ==>
+	guard
+		i < 368640
+	do
+		if in1 >= in2
+		then
+			sum := sum + (in1 - in2);
+			i := i + 1;
+		else
+			sum := sum + (in2 - in1);
+			i := i + 1;
+		end
+	end
+	
+	action ==>
+	guard 
+		i = 368640
+	do
+		sad_per_frame := sum/368640;
+		MSE := sad_per_frame * sum;
+		println("Total SAD:" + sum);
+		println("SAD per frame:" + sad_per_frame);
+		println("MSE:" + MSE);
+	end
+end 

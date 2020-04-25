@@ -1,0 +1,25 @@
+actor encrypt() uint (size = 8) Stream ==> uint (size = 8) encrypted_img, uint(size = 8) key:
+
+	uint (size = 8) temp;
+	uint (size = 8) temp_key := 40; 
+
+	encrypt_img: action Stream:[in1] ==> encrypted_img:[out1], key:[out2]
+	var
+		uint (size = 8) out1,
+		uint (size = 8) out2
+	do
+		
+		temp := in1 + temp_key;
+		if temp >= 256
+		then 
+			out1 := temp - 256;
+			out2 := temp_key;
+			//println("encrypt: " + in1 + " " + out1 + " " + out2);
+		else
+			out1 := temp;
+			out2 := temp_key;
+			//println("encrypt: " + in1 + " " + out1 + " " + out2);
+		end 
+	end
+
+end

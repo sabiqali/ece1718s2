@@ -1,0 +1,24 @@
+actor Sum() uint(size = 8) Abs_diff ==> uint(size = 32) Sad_vals:
+
+	int i := 0;
+	int sum := 0;
+	
+	action Abs_diff:[a] ==>
+	guard
+		i < 368640 //Find out the number of pixels and set this number to that value
+	do
+		sum := sum + a;
+		i := i + 1;
+		//println("i value" + i + " " + sum);
+	end
+	
+	action ==> Sad_vals:[out1]
+	guard 
+		i = 368640
+	var 
+		uint(size = 32) out1
+	do
+		out1 := sum;
+		//println("Sum"+ i + " "+ out1 + " "+ sum);
+	end
+end

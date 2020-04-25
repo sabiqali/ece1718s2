@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/homes/c/chaud482/workspace/design2_piped/src/libs/orcc-native/src/opencv.cpp
+opencv2/opencv.hpp
+/homes/c/chaud482/workspace/design2_piped/src/libs/orcc-native/src/opencv2/opencv.hpp
+

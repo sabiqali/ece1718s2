@@ -1,0 +1,18 @@
+Name, Package, Actors, Connections, SDF, CSDF, QSDF, KPN, DPN
+TopMilestone2, , 6, 6, 0, 0, 0, 0, 0
+
+Name, Incoming, Outgoing, Inputs, Outputs, Actions, FSM, MoC
+Source, 0, 1, 0, 1, 6, true, 
+Duplicate, 1, 2, 1, 2, 1, false, 
+Approx, 1, 1, 1, 1, 1, false, 
+Abs_Diff, 2, 1, 2, 1, 2, false, 
+Sum, 1, 1, 1, 1, 2, false, 
+Printer, 1, 0, 1, 0, 1, false, 
+
+Source, SrcPort, Target, TgtPort, Size
+Duplicate, Data_To_Be_Manipulated, Approx, Data_To_Be_Manipulated, 8192
+Duplicate, Actual_data, Abs_Diff, Actual_data, 8192
+Approx, Approxed_Data, Abs_Diff, Approxed_Data, 8192
+Abs_Diff, Abs_diff, Sum, Abs_diff, 8192
+Sum, Sad_vals, Printer, Sad_vals, 8192
+Source, Stream, Duplicate, Stream, 8192

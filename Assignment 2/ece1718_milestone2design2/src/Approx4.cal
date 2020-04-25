@@ -1,0 +1,78 @@
+actor Approx4() uint(size = 8) Data_To_Be_Manipulated ==> uint(size = 8) Approxed_Data:
+	
+	int i := 0;
+	int j := 0;
+	int l := 0;
+	int jcount := 0;
+	int k := 640;
+	int o := 1280;
+	int (size=8) h := 0;
+	int m := 640;
+	int n := 576;
+	int send_flag := 0;
+	List (type: uint(size=8), size= m*n) M;
+	List (type: uint(size=8), size= m*n) N;
+	int diff := 0;
+	int sum := 0;
+	
+	one_action: action Data_To_Be_Manipulated: [In1] ==> Approxed_Data:[Out1]
+	var 
+		uint(size = 8) Out1
+	do
+		while i < 368640
+		do
+			M[i] := In1;
+			i := i + 1;
+		end
+		if i = 368640
+		then
+			while k < 368640
+			do
+			h := (M[j]+M[j+1]+M[k]+M[k+1]) / 4;
+				N[j] := h;
+				N[j+1] := h;
+				N[k] := h;
+				N[k+1] := h;
+				diff := (M[j] - N[j]) + (M[j+1] - N[j+1]) + (M[k] - N[k]) + (M[k+1] - N[k-1]);
+				sum := sum + diff;
+				println("Approx2: "+N[j] + " " + N[j+1]+ " " + N[k]+ " " + N[k+1] + " " + j + " " + k + " " + sum);
+				j := j+2;
+				k := k+2;
+				//println(" "+j + " " + k + " " + l);
+				if j = 368000
+				then 
+					while l < 368640
+					do
+						Out1 := N[l];
+						//println("Approx3: " + l + " " + Out1);
+						l := l + 1;
+					end
+				end
+				/*if j = 368000
+				then 
+					send_flag := 1;
+				end*/
+				if j mod 640 = 0
+				then
+					jcount := jcount + 2;
+					j := 640 * jcount;
+					k := j + 640;
+				end
+				//println(" "+j + " " + k);
+			end
+		end
+		//println(i + " " + j + " " + k + " " + l);
+	end
+	
+	/*send_data: action ==> Approxed_Data: [Out1]
+	guard
+		send_flag = 1,
+		l < 368640
+	var
+		uint (size = 8) Out1
+	do
+		Out1 := N[l];
+		println("Approx3: " + l + " " + Out1);
+		l := l + 1;
+	end*/
+end

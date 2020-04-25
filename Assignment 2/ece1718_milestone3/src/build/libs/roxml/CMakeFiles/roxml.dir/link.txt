@@ -1,0 +1,2 @@
+/usr/bin/ar qc libroxml.a  CMakeFiles/roxml.dir/src/roxml-internal.c.o CMakeFiles/roxml.dir/src/roxml-parse-engine.c.o CMakeFiles/roxml.dir/src/roxml.c.o
+/usr/bin/ranlib libroxml.a
